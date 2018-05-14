@@ -54,7 +54,7 @@ class Player:
         card1 = currentCards[1]
         card2 = currentCards[2]
 
-        goodValues = ["8","9","T", "J", "Q", "K", "A"]
+        goodValues = ["T", "J", "Q", "K", "A"]
 
         if card1 in goodValues and card2 in goodValues:
             return True
@@ -100,15 +100,21 @@ class Player:
 
 
     def call_all_in(self, game_state):
+        currentCards = self.get_cards(game_state)
+        card1 = currentCards[1]
+        card2 = currentCards[2]
 
+        goodValues = ["T", "J", "Q", "K", "A"]
+        goodValues_offsuit = ["A", "K", "Q", "J"]
 
-
-    # def if_small_blind_open(self, game_state):
-    #     if game_state["players"][2]
-    #     for i in game_state["players"]:
-    #         if game_state["players"][i]["bet"] > 0:
-
-
+        if currentCards[0] == "S":
+            if card1 == "A" or card2 == "A":
+                return True
+            if card1 in goodValues and card2 in goodValues:
+                return True
+        else:
+            if card1 in goodValues_offsuit and card2 in goodValues_offsuit:
+                return True
 
 
 
