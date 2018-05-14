@@ -128,7 +128,7 @@ class Player:
 
     def get_active_opponent(self, game_state):
         for player in game_state["players"]:
-            if player["status"] == "active" and player["id"] != 2:
+            if player["status"] == "active" and int(player["id"]) != 2:
                 return player
 
     def call_all_in(self, game_state):
