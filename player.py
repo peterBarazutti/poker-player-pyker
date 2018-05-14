@@ -26,7 +26,7 @@ class Player:
             else:
                 active_player = self.get_active_opponent(game_state)
 
-                if (int(active_player["id"]) == 3 or int(active_player["id"] == 1)) and int(game_state["dealer"]) == 2:
+                if (int(active_player["id"]) == 3 or int(active_player["id"] == 1) or int(active_player["id"] == 0)) and int(game_state["dealer"]) == 2:
                     return 2 * game_state["minimum_raise"]
 
                 elif int(game_state["current_buy_in"]) <= int(game_state["big_blind"]):
