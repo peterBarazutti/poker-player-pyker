@@ -6,7 +6,10 @@ class Player:
         print game_state["players"][0]["hole_cards"][0]["rank"]
         print game_state["players"][0]["hole_cards"][1]["rank"]
         print game_state["players"]
-        return 1000
+        if self.isHighCards() or self.isPair():
+            self.allIn()
+        else:
+            return 0
 
     def showdown(self, game_state):
         pass
@@ -27,4 +30,28 @@ class Player:
             returning_string = "O"
         returning_string = returning_string + card1_rank + card2_rank
         return returning_string
+
+    def isPair(self):
+        currentCards = self.get_cards()
+        card1 = currentCards[1]
+        card2 = currentCards[2]
+
+        return card1 == card2
+
+    def isHighCards(self):
+        currentCards = self.get_cards()
+        card1 = currentCards[1]
+        card2 = currentCards[2]
+
+        goodValues = ["T","J","Q","K","A"]
+
+        if card1 in goodValues and card2 in goodValues:
+            return True
+
+    def allIn(self,game_state):
+        return int(game_state["players"][2]["stack"])
+
+
+
+
 
