@@ -138,7 +138,7 @@ class Player:
 
     def is_allin(self, game_state):
         for player in game_state["players"]:
-            if player["stack"] == player["bet"]:
+            if player["stack"] == 0 and player["status"] == "active":
                 return True
 
     def get_active_opponent(self, game_state):
