@@ -1,14 +1,23 @@
 class Player:
     VERSION = "Default Python folding player"
+    IS_TWO_PLAYERS = False
 
     def betRequest(self, game_state):
 
-        if self.isHighCards(game_state) or self.isPair(game_state) or self.is_suited_connector(game_state):
-            return self.allIn(game_state)
-        elif int(game_state["current_buy_in"]) <= int(game_state["big_blind"]):
-            return int(game_state["minimum_raise"])
+        if not self.IS_TWO_PLAYERS:
+            if self.isHighCards(game_state) or self.isPair(game_state) or self.is_suited_connector(game_state):
+                return self.allIn(game_state)
+            else:
+                return 0
         else:
-            return 0
+            active_player = self.get_active_opponent(game_state)
+            if active_player["id"] == 3 and game_state["dealer"] == 2:
+                return 2 * game_state["minimum_raise"]
+            if self.isHighCards(game_state) or self.isPair(game_state) or self.is_suited_connector(game_state):
+                return self.allIn(game_state)
+            else:
+                return 0
+
         # if self.isHighCards(game_state) or self.isPair(game_state):
         #     if self.havePair(game_state):
         #         return self.allIn(game_state)
@@ -24,7 +33,8 @@ class Player:
         #     return 0
 
     def showdown(self, game_state):
-        pass
+        if self.is_two_players_active(game_state) == 2:
+            self.IS_TWO_PLAYERS == True
 
     def get_cards(self, game_state):
         returning_string = ""
@@ -56,7 +66,7 @@ class Player:
         card1 = currentCards[1]
         card2 = currentCards[2]
 
-        goodValues = ["T", "J", "Q", "K", "A"]
+        goodValues = ["8", "9", "T", "J", "Q", "K", "A"]
 
         if card1 in goodValues and card2 in goodValues:
             return True
@@ -100,7 +110,14 @@ class Player:
             if current_card[1] == "A" or current_card[2] == "A":
                 return True
 
-    # def if_was_allin(self, game_state):
+
+    def if_was_allin(self, game_state):
+        pass
+
+    def get_active_opponent(self, game_state):
+        for player in game_state["players"]:
+            if player["status"] == "active" and player["id"] != 2:
+                return player
 
     def call_all_in(self, game_state):
         currentCards = self.get_cards(game_state)
@@ -118,6 +135,13 @@ class Player:
         else:
             if card1 in goodValues_offsuit and card2 in goodValues_offsuit:
                 return True
+
+    def is_two_players_active(self, game_state):
+        active_players = []
+        for player in game_state["players"]:
+            if player["status"] == "active":
+                active_players.append(player["id"])
+        return len(active_players)
 
     def isAllIn(self, game_state):
         for player in game_state["players"]:
