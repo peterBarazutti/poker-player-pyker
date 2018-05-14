@@ -49,6 +49,16 @@ class Player:
     def allIn(self,game_state):
         return int(game_state["players"][2]["stack"])
 
+    def getCardsFromTable(self,game_state):
+        listOfCards = []
+        for card in game_state["community_cards"]:
+            if(card["rank"] == "10"):
+                listOfCards.append("T")
+            else:
+                listOfCards.append(card["rank"])
+        return listOfCards
+
+
 
 
 
