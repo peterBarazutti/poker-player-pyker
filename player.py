@@ -1,4 +1,3 @@
-
 class Player:
     VERSION = "Default Python folding player"
 
@@ -8,6 +7,19 @@ class Player:
             return self.allIn(game_state)
         else:
             return 0
+        # if self.isHighCards(game_state) or self.isPair(game_state):
+        #     if self.havePair(game_state):
+        #         return self.allIn(game_state)
+        #     else:
+        #         if (game_state["current_buy_in"] > game_state["big_blind"]):
+        #             if (game_state["current_buy_in"] / self.allIn(game_state)) * 100 < 15:
+        #                 return game_state["current_buy_in"]
+        #             else:
+        #                 return 0
+        #         else:
+        #             return game_state["minimum_raise"]
+        # else:
+        #     return 0
 
     def showdown(self, game_state):
         pass
@@ -29,7 +41,7 @@ class Player:
         returning_string = returning_string + card1_rank + card2_rank
         return returning_string
 
-    def isPair(self,game_state):
+    def isPair(self, game_state):
         currentCards = self.get_cards(game_state)
         card1 = currentCards[1]
         card2 = currentCards[2]
@@ -37,29 +49,36 @@ class Player:
             if int(card1) > 4:
                 return True
 
-    def isHighCards(self,game_state):
+    def isHighCards(self, game_state):
         currentCards = self.get_cards(game_state)
         card1 = currentCards[1]
         card2 = currentCards[2]
 
-        goodValues = ["T","J","Q","K","A"]
+        goodValues = ["T", "J", "Q", "K", "A"]
 
         if card1 in goodValues and card2 in goodValues:
             return True
 
-    def allIn(self,game_state):
+    def allIn(self, game_state):
         return int(game_state["players"][2]["stack"])
 
-    def getCardsFromTable(self,game_state):
+    def getCardsFromTable(self, game_state):
         listOfCards = []
         for card in game_state["community_cards"]:
-            if(card["rank"] == "10"):
+            if (card["rank"] == "10"):
                 listOfCards.append("T")
             else:
                 listOfCards.append(card["rank"])
         return listOfCards
 
+    def havePair(self, game_state):
+        currentCards = self.get_cards(game_state)
+        card1 = currentCards[1]
+        card2 = currentCards[2]
 
+        cardsOnTable = self.getCardsFromTable(game_state)
+
+        return card1 in cardsOnTable or card2 in cardsOnTable
 
     def is_suited_connector(self, game_state):
         current_card = self.get_cards(game_state)
@@ -87,10 +106,13 @@ class Player:
 
 
 
+    def isAllIn(self, game_state):
+        for player in game_state["players"]:
+            if player["bet"] > 500:
+                return True
+
 
     def test_print(self, game_state):
         print "$$$$$$$$$"
         print game_state["players"][2]
         print "$$$$$$$$$"
-
-
