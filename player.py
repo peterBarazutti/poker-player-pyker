@@ -3,7 +3,7 @@ class Player:
 
     def betRequest(self, game_state):
 
-        if self.isHighCards(game_state) or self.isPair(game_state) or self.is_suited_connector(game_state):
+        if self.isHighCards(game_state) or self.isPair(game_state) or self.is_suited_connector(game_state) or int(game_state["players"][2]["stack"] < 100):
             return self.allIn(game_state)
         else:
             return 0
