@@ -1,12 +1,23 @@
 class Player:
     VERSION = "Default Python folding player"
+    IS_TWO_PLAYERS = False
 
     def betRequest(self, game_state):
 
-        if self.isHighCards(game_state) or self.isPair(game_state) or self.is_suited_connector(game_state):
-            return self.allIn(game_state)
+        if not self.IS_TWO_PLAYERS:
+            if self.isHighCards(game_state) or self.isPair(game_state) or self.is_suited_connector(game_state):
+                return self.allIn(game_state)
+            else:
+                return 0
         else:
-            return 0
+            active_player = self.get_active_opponent(game_state)
+            if active_player["id"] == 3 and game_state["dealer"] == 2:
+                return 2 * game_state["minimum_raise"]
+            if self.isHighCards(game_state) or self.isPair(game_state) or self.is_suited_connector(game_state):
+                return self.allIn(game_state)
+            else:
+                return 0
+
         # if self.isHighCards(game_state) or self.isPair(game_state):
         #     if self.havePair(game_state):
         #         return self.allIn(game_state)
@@ -22,7 +33,8 @@ class Player:
         #     return 0
 
     def showdown(self, game_state):
-        pass
+        if self.is_two_players_active(game_state) == 2:
+            self.IS_TWO_PLAYERS == True
 
     def get_cards(self, game_state):
         returning_string = ""
@@ -96,21 +108,27 @@ class Player:
             if abs(first_card - second_card) <= 2 and (first_card + second_card) > 10:
                 return True
 
-
     # def if_small_blind_open(self, game_state):
     #     if game_state["players"][2]
     #     for i in game_state["players"]:
     #         if game_state["players"][i]["bet"] > 0:
 
+    def get_active_opponent(self, game_state):
+        for player in game_state["players"]:
+            if player["status"] == "active":
+                return player
 
-
-
+    def is_two_players_active(self, game_state):
+        active_players = []
+        for player in game_state["players"]:
+            if player["status"] == "active":
+                active_players.append(player["id"])
+        return len(active_players)
 
     def isAllIn(self, game_state):
         for player in game_state["players"]:
             if player["bet"] > 500:
                 return True
-
 
     def test_print(self, game_state):
         print "$$$$$$$$$"
