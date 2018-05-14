@@ -16,10 +16,10 @@ class Player:
 
     def get_cards(self, game_state):
         returning_string = ""
-        card1_suit = game_state["players"]["hole_cards"][0]["suit"]
-        card2_suit = game_state["players"]["hole_cards"][1]["suit"]
-        card1_rank = game_state["players"]["hole_cards"][0]["rank"]
-        card2_rank = game_state["players"]["hole_cards"][1]["rank"]
+        card1_suit = game_state["players"][2]["hole_cards"][0]["suit"]
+        card2_suit = game_state["players"][2]["hole_cards"][1]["suit"]
+        card1_rank = game_state["players"][2]["hole_cards"][0]["rank"]
+        card2_rank = game_state["players"][2]["hole_cards"][1]["rank"]
         if card1_rank == "10":
             card1_rank = "T"
         if card2_rank == "10":
@@ -53,5 +53,11 @@ class Player:
 
 
 
+
+
+    def test_print(self, game_state):
+        print "$$$$$$$$$"
+        print game_state["players"][2]
+        print "$$$$$$$$$"
 
 
