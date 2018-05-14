@@ -3,7 +3,10 @@ class Player:
 
     def betRequest(self, game_state):
 
-        if self.isHighCards(game_state) or self.isPair(game_state) or self.is_suited_connector(game_state) or int(game_state["players"][2]["stack"] < 100):
+        if self.is_allin(game_state) and self.call_all_in(game_state):
+            return self.allIn(game_state)
+        elif not self.is_allin(game_state) and (self.isHighCards(game_state) or self.isPair(game_state) or
+                                                self.is_suited_connector(game_state) or int(game_state["players"][2]["stack"] < 100)):
             return self.allIn(game_state)
         else:
             return 0
@@ -99,8 +102,11 @@ class Player:
                 return True
 
 
-    def if_was_allin(self, game_state):
-        pass
+    def is_allin(self, game_state):
+        for player in game_state["players"]:
+            if player["stack"] == player["bet"]:
+                return True
+
 
     def call_all_in(self, game_state):
         currentCards = self.get_cards(game_state)
