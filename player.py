@@ -66,7 +66,7 @@ class Player:
         card1 = currentCards[1]
         card2 = currentCards[2]
 
-        goodValues = ["T", "J", "Q", "K", "A"]
+        goodValues = ["8", "9", "T", "J", "Q", "K", "A"]
 
         if card1 in goodValues and card2 in goodValues:
             return True
@@ -110,7 +110,9 @@ class Player:
             if current_card[1] == "A" or current_card[2] == "A":
                 return True
 
-    # def if_was_allin(self, game_state):
+
+    def if_was_allin(self, game_state):
+        pass
 
     def get_active_opponent(self, game_state):
         for player in game_state["players"]:
