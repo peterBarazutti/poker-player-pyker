@@ -107,16 +107,31 @@ class Player:
                 second_card = int(second_card)
             if abs(first_card - second_card) <= 2 and (first_card + second_card) > 10:
                 return True
+            if current_card[1] == "A" or current_card[2] == "A":
+                return True
 
-    # def if_small_blind_open(self, game_state):
-    #     if game_state["players"][2]
-    #     for i in game_state["players"]:
-    #         if game_state["players"][i]["bet"] > 0:
+    # def if_was_allin(self, game_state):
 
     def get_active_opponent(self, game_state):
         for player in game_state["players"]:
             if player["status"] == "active" and player["id"] != 2:
                 return player
+
+    def call_all_in(self, game_state):
+        currentCards = self.get_cards(game_state)
+        card1 = currentCards[1]
+        card2 = currentCards[2]
+
+        goodValues = ["T", "J", "Q", "K", "A"]
+        goodValues_offsuit = ["A", "K", "Q", "J"]
+        if currentCards[0] == "S":
+            if card1 == "A" or card2 == "A":
+                return True
+            if card1 in goodValues and card2 in goodValues:
+                return True
+        else:
+            if card1 in goodValues_offsuit and card2 in goodValues_offsuit:
+                return True
 
     def is_two_players_active(self, game_state):
         active_players = []
