@@ -54,7 +54,7 @@ class Player:
         card1 = currentCards[1]
         card2 = currentCards[2]
 
-        goodValues = ["T", "J", "Q", "K", "A"]
+        goodValues = ["8","9","T", "J", "Q", "K", "A"]
 
         if card1 in goodValues and card2 in goodValues:
             return True
@@ -97,6 +97,10 @@ class Player:
                 return True
             if current_card[1] == "A" or current_card[2] == "A":
                 return True
+
+
+    def call_all_in(self, game_state):
+
 
 
     # def if_small_blind_open(self, game_state):
