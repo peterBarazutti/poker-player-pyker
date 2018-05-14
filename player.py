@@ -12,7 +12,7 @@ class Player:
 
                 elif int(game_state["current_buy_in"]) <= int(game_state["big_blind"]):
                     print game_state["minimum_raise"]
-                    return int(game_state["minimum_raise"]) * 2
+                    return int(game_state["minimum_raise"]) * 4
 
                 elif not self.is_allin(game_state) and (self.isHighCards(game_state)
                                                         or self.isPair(game_state)
@@ -31,7 +31,7 @@ class Player:
 
                 elif int(game_state["current_buy_in"]) <= int(game_state["big_blind"]):
                     print game_state["minimum_raise"]
-                    return int(game_state["minimum_raise"]) * 2
+                    return int(game_state["minimum_raise"]) * 4
 
                 elif not self.is_allin(game_state) and (self.isHighCards(game_state)
                                                         or self.isPair(game_state)
