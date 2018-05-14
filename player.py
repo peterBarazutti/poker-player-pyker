@@ -102,7 +102,6 @@ class Player:
     def if_was_allin(self, game_state):
         pass
 
-
     def call_all_in(self, game_state):
         currentCards = self.get_cards(game_state)
         card1 = currentCards[1]
@@ -120,13 +119,10 @@ class Player:
             if card1 in goodValues_offsuit and card2 in goodValues_offsuit:
                 return True
 
-
-
     def isAllIn(self, game_state):
         for player in game_state["players"]:
             if player["bet"] > 500:
                 return True
-
 
     def test_print(self, game_state):
         print "$$$$$$$$$"
