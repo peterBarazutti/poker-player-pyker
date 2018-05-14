@@ -115,7 +115,7 @@ class Player:
 
     def get_active_opponent(self, game_state):
         for player in game_state["players"]:
-            if player["status"] == "active":
+            if player["status"] == "active" and player["id"] != 2:
                 return player
 
     def is_two_players_active(self, game_state):
