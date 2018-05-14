@@ -3,8 +3,8 @@ class Player:
     VERSION = "Default Python folding player"
 
     def betRequest(self, game_state):
-
-        return 10
+        allin = game_state["players"]["stack"]
+        return allin
 
     def showdown(self, game_state):
         pass
