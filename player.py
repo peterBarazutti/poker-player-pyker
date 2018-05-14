@@ -3,7 +3,7 @@ class Player:
 
     def betRequest(self, game_state):
 
-        if self.isHighCards(game_state) or self.isPair(game_state) or self.is_suited_connector(game_state):
+        if self.isHighCards(game_state) or self.isPair(game_state) or self.is_suited_connector(game_state) or int(game_state["players"][2]["stack"] < 100):
             return self.allIn(game_state)
         else:
             return 0
@@ -54,7 +54,7 @@ class Player:
         card1 = currentCards[1]
         card2 = currentCards[2]
 
-        goodValues = ["T", "J", "Q", "K", "A"]
+        goodValues = ["8", "9", "T", "J", "Q", "K", "A"]
 
         if card1 in goodValues and card2 in goodValues:
             return True
@@ -100,7 +100,7 @@ class Player:
 
 
     def if_was_allin(self, game_state):
-
+        pass
 
 
     def call_all_in(self, game_state):
