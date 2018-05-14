@@ -78,6 +78,12 @@ class Player:
                 return True
 
 
+    # def if_small_blind_open(self, game_state):
+    #     if game_state["players"][2]
+    #     for i in game_state["players"]:
+    #         if game_state["players"][i]["bet"] > 0:
+
+
 
 
 
