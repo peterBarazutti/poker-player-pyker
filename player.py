@@ -4,10 +4,13 @@ class Player:
     def betRequest(self, game_state):
 
         if self.isHighCards(game_state) or self.isPair(game_state):
-            if self.havePair():
+            if self.havePair(game_state):
                 return self.allIn(game_state)
             else:
-                return int(game_state["minimum_raise"])
+                if self.isAllIn(game_state):
+                    return 0
+                else:
+                    return int(game_state["minimum_raise"])
         else:
             return 0
 
@@ -68,6 +71,11 @@ class Player:
         cardsOnTable = self.getCardsFromTable(game_state)
 
         return card1 in cardsOnTable or card2 in cardsOnTable
+
+    def isAllIn(self, game_state):
+        for player in game_state["players"]:
+            if player["bet"] > 500:
+                return True
 
     def test_print(self, game_state):
         print "$$$$$$$$$"
