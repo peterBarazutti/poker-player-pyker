@@ -3,12 +3,11 @@ class Player:
     IS_TWO_PLAYERS = False
 
     def betRequest(self, game_state):
-
         if not self.IS_TWO_PLAYERS:
             if self.isHighCards(game_state) or self.isPair(game_state) or self.is_suited_connector(game_state):
                 return self.allIn(game_state)
             elif int(game_state["current_buy_in"]) <= int(game_state["big_blind"]):
-                return int(game_state["minimum_raise"])
+                return int(game_state["minimum_raise"])*2
             else:
                 return 0
         else:
