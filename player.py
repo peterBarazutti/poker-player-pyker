@@ -11,7 +11,7 @@ class Player:
                 return 0
         else:
             active_player = self.get_active_opponent(game_state)
-            if active_player["id"] == 3 and game_state["dealer"] == 2:
+            if int(active_player["id"]) == 3 and int(game_state["dealer"]) == 2:
                 return 2 * game_state["minimum_raise"]
             if self.isHighCards(game_state) or self.isPair(game_state) or self.is_suited_connector(game_state):
                 return self.allIn(game_state)
