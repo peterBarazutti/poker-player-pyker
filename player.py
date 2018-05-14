@@ -4,28 +4,45 @@ class Player:
 
     def betRequest(self, game_state):
 
+        try:
+            if not self.IS_TWO_PLAYERS:
 
-        if not self.IS_TWO_PLAYERS:
-            if self.is_allin(game_state) and self.call_all_in(game_state):
-                return self.allIn(game_state)
-            elif not self.is_allin(game_state) and (self.isHighCards(game_state)
-                                                    or self.isPair(game_state)
-                                                    or self.is_suited_connector(game_state)
-                                                    or int(game_state["players"][2]["stack"] < 100)):
-                return self.allIn(game_state)
+                if self.is_allin(game_state) and self.call_all_in(game_state):
+                    return self.allIn(game_state)
+
+                # elif not self.is_allin(game_state) and (self.isHighCards(game_state)
+                #                                         or self.isPair(game_state)
+                #                                         or self.is_suited_connector(game_state)
+                #                                         or int(game_state["players"][2]["stack"] < 100)):
+                #     return self.allIn(game_state)
+
+                elif int(game_state["current_buy_in"]) <= int(game_state["big_blind"]):
+                    print game_state["minimum_raise"]
+                    return int(game_state["minimum_raise"]) * 2
+
+                else:
+                    return 0
+
             else:
-                return 0
-        else:
-            active_player = self.get_active_opponent(game_state)
-            if int(active_player["id"]) == 3 and int(game_state["dealer"]) == 2:
-                return 2 * game_state["minimum_raise"]
-            if not self.is_allin(game_state) and (self.isHighCards(game_state)
-                                                  or self.isPair(game_state)
-                                                  or self.is_suited_connector(game_state)
-                                                  or int(game_state["players"][2]["stack"] < 100)):
-                return self.allIn(game_state)
-            else:
-                return 0
+                active_player = self.get_active_opponent(game_state)
+
+                if int(active_player["id"]) == 3 and int(game_state["dealer"]) == 2:
+                    return 2 * game_state["minimum_raise"]
+
+                # if not self.is_allin(game_state) and (self.isHighCards(game_state)
+                #                                       or self.isPair(game_state)
+                #                                       or self.is_suited_connector(game_state)
+                #                                       or int(game_state["players"][2]["stack"] < 100)):
+                #     return self.allIn(game_state)
+
+                elif int(game_state["current_buy_in"]) <= int(game_state["big_blind"]):
+                    print game_state["minimum_raise"]
+                    return int(game_state["minimum_raise"]) * 2
+
+                else:
+                    return 0
+        except:
+            return 0
 
         # if self.isHighCards(game_state) or self.isPair(game_state):
         #     if self.havePair(game_state):
@@ -119,12 +136,10 @@ class Player:
             if current_card[1] == "A" or current_card[2] == "A":
                 return True
 
-
     def is_allin(self, game_state):
         for player in game_state["players"]:
             if player["stack"] == player["bet"]:
                 return True
-
 
     def get_active_opponent(self, game_state):
         for player in game_state["players"]:
