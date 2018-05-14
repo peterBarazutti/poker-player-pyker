@@ -33,8 +33,9 @@ class Player:
         currentCards = self.get_cards(game_state)
         card1 = currentCards[1]
         card2 = currentCards[2]
-
-        return card1 == card2
+        if card1 == card2:
+            if int(card1) > 4:
+                return True
 
     def isHighCards(self,game_state):
         currentCards = self.get_cards(game_state)
