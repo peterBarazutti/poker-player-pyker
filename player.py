@@ -2,9 +2,7 @@ class Player:
     VERSION = "Default Python folding player"
 
     def betRequest(self, game_state):
-        print "$$$$$$$$$"
-        print game_state
-        print "$$$$$$$$$"
+        self.test_print()
         return 1000
 
     def showdown(self, game_state):
@@ -29,5 +27,7 @@ class Player:
 
     def test_print(self, game_state):
         print "$$$$$$$$$"
-        print game_state
+        print game_state["players"][2]
         print "$$$$$$$$$"
+
+
