@@ -1,11 +1,10 @@
-
 class Player:
     VERSION = "Default Python folding player"
 
     def betRequest(self, game_state):
-        print game_state["players"][0]["hole_cards"][0]["rank"]
-        print game_state["players"][0]["hole_cards"][1]["rank"]
-        print game_state["players"]
+        print "$$$$$$$$$"
+        print game_state
+        print "$$$$$$$$$"
         return 1000
 
     def showdown(self, game_state):
@@ -28,3 +27,7 @@ class Player:
         returning_string = returning_string + card1_rank + card2_rank
         return returning_string
 
+    def test_print(self, game_state):
+        print "$$$$$$$$$"
+        print game_state
+        print "$$$$$$$$$"
