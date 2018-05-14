@@ -4,7 +4,7 @@ class Player:
 
     def betRequest(self, game_state):
 
-        if self.isHighCards() or self.isPair():
+        if self.isHighCards(game_state) or self.isPair(game_state):
             self.allIn()
         else:
             return 0
@@ -29,15 +29,15 @@ class Player:
         returning_string = returning_string + card1_rank + card2_rank
         return returning_string
 
-    def isPair(self):
-        currentCards = self.get_cards()
+    def isPair(self,game_state):
+        currentCards = self.get_cards(game_state)
         card1 = currentCards[1]
         card2 = currentCards[2]
 
         return card1 == card2
 
-    def isHighCards(self):
-        currentCards = self.get_cards()
+    def isHighCards(self,game_state):
+        currentCards = self.get_cards(game_state)
         card1 = currentCards[1]
         card2 = currentCards[2]
 
