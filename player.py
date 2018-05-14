@@ -33,8 +33,9 @@ class Player:
         currentCards = self.get_cards(game_state)
         card1 = currentCards[1]
         card2 = currentCards[2]
-
-        return card1 == card2
+        if card1 == card2:
+            if int(card1) > 4:
+                return True
 
     def isHighCards(self,game_state):
         currentCards = self.get_cards(game_state)
@@ -48,6 +49,16 @@ class Player:
 
     def allIn(self,game_state):
         return int(game_state["players"][2]["stack"])
+
+    def getCardsFromTable(self,game_state):
+        listOfCards = []
+        for card in game_state["community_cards"]:
+            if(card["rank"] == "10"):
+                listOfCards.append("T")
+            else:
+                listOfCards.append(card["rank"])
+        return listOfCards
+
 
 
     def is_suited_connector(self, game_state):
