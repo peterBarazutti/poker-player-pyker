@@ -4,15 +4,16 @@ class Player:
     def betRequest(self, game_state):
 
         if self.isHighCards(game_state) or self.isPair(game_state) or self.is_suited_connector(game_state):
-            return self.allIn(game_state)
-        if self.isHighCards(game_state) or self.isPair(game_state):
             if self.havePair(game_state):
                 return self.allIn(game_state)
             else:
-                if self.isAllIn(game_state):
-                    return 0
+                if (game_state["current_buy_in"] > game_state["big_blind"]):
+                    if (game_state["current_buy_in"] / self.allIn(game_state)) * 100 < 15:
+                        return game_state["current_buy_in"]
+                    else:
+                        return 0
                 else:
-                    return int(game_state["minimum_raise"])
+                    return game_state["minimum_raise"]
         else:
             return 0
 
@@ -74,6 +75,7 @@ class Player:
         cardsOnTable = self.getCardsFromTable(game_state)
 
         return card1 in cardsOnTable or card2 in cardsOnTable
+
     def is_suited_connector(self, game_state):
         current_card = self.get_cards(game_state)
         if current_card[0] == "S":
@@ -89,9 +91,6 @@ class Player:
                 second_card = int(second_card)
             if abs(first_card - second_card) <= 2 and (first_card + second_card) > 10:
                 return True
-
-
-
 
     def isAllIn(self, game_state):
         for player in game_state["players"]:
