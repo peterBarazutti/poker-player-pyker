@@ -3,6 +3,8 @@ class Player:
 
     def betRequest(self, game_state):
 
+        if self.isHighCards(game_state) or self.isPair(game_state) or self.is_suited_connector(game_state):
+            return self.allIn(game_state)
         if self.isHighCards(game_state) or self.isPair(game_state):
             if self.havePair(game_state):
                 return self.allIn(game_state)
@@ -72,6 +74,24 @@ class Player:
         cardsOnTable = self.getCardsFromTable(game_state)
 
         return card1 in cardsOnTable or card2 in cardsOnTable
+    def is_suited_connector(self, game_state):
+        current_card = self.get_cards(game_state)
+        if current_card[0] == "S":
+            first_card = current_card[1]
+            second_card = current_card[2]
+            if first_card.isalpha():
+                first_card = 10
+            else:
+                first_card = int(first_card)
+            if second_card.isalpha():
+                second_card = 10
+            else:
+                second_card = int(second_card)
+            if abs(first_card - second_card) <= 2 and (first_card + second_card) > 10:
+                return True
+
+
+
 
     def isAllIn(self, game_state):
         for player in game_state["players"]:
