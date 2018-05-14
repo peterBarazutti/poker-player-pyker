@@ -1,5 +1,5 @@
 class Player:
-    VERSION = "Default Python folding player"
+    VERSION = "1.0"
     IS_TWO_PLAYERS = False
 
     def betRequest(self, game_state):
