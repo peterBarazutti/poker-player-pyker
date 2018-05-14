@@ -5,7 +5,7 @@ class Player:
     def betRequest(self, game_state):
 
         if self.isHighCards(game_state) or self.isPair(game_state):
-            self.allIn()
+            self.allIn(game_state)
         else:
             return 0
 
