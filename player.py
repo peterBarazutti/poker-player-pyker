@@ -2,7 +2,7 @@ class Player:
     VERSION = "Default Python folding player"
 
     def betRequest(self, game_state):
-        self.test_print(self, game_state)
+        self.test_print(game_state)
         return 1000
 
     def showdown(self, game_state):
