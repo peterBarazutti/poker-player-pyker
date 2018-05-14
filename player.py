@@ -95,6 +95,8 @@ class Player:
                 second_card = int(second_card)
             if abs(first_card - second_card) <= 2 and (first_card + second_card) > 10:
                 return True
+            if current_card[1] == "A" or current_card[2] == "A":
+                return True
 
 
     # def if_small_blind_open(self, game_state):
